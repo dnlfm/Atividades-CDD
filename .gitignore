@@ -1,0 +1,5 @@
+virtualEnv
+virtualEnv/*
+.ipynb_checkpoints
+Makefile
+Prática 1.ipynb
