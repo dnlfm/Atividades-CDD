@@ -1,0 +1,19 @@
+distribuicao normal? -> shapiro + histograma (atv 2)
+
+68% estará a um desvio padrão da média
+95% das observações estará a dois desvios padrões da média
+99,7% das médias das amostras se situam dentro de três erros padrões em relação à média da população
+
+
+pd.options.display.float_format = "{:.2f}".format
+
+
+talvez:
+http://onlinestatbook.com/2/calculators/normal_dist.html
+
+0,001
+0,1%
+
+
+LINK PLANILHA: https://drive.google.com/file/d/1z3rCFAE6JzOzvRoOM0ZL_NN5Ps2iuyfJ/view
+LINK PROVA: https://drive.google.com/file/d/1WBcyb3eAYo2lUkkGucdudhRjDixg4Bwm/view

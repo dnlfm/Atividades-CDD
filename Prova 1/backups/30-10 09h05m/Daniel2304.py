@@ -4,7 +4,7 @@
 # <h1>Prova 1 - Introdução à Ciência dos Dados</h1>
 # <h3>Daniel Freitas Martins - 2304</h3>
 
-# In[118]:
+# In[642]:
 
 
 import pandas as pd
@@ -22,7 +22,7 @@ from mlxtend.frequent_patterns import apriori
 from mlxtend.frequent_patterns import association_rules
 
 
-# In[119]:
+# In[643]:
 
 
 def lerCSV(caminho_arquivo, header):
@@ -31,7 +31,7 @@ def lerCSV(caminho_arquivo, header):
 
 # <h2>Lendo dados de "Filmes-Prova01.csv", correspondentes a lista de filmes de quatro plataformas de <i>Streaming</i> (Netflix, Amazon Prime, Disney+ e Hulu)</h2>
 
-# In[120]:
+# In[644]:
 
 
 df = lerCSV("Filmes-Prova01.csv", header=0)
@@ -40,7 +40,7 @@ df.head(3)
 
 # <h2>1) Quantos filmes cada uma das 4 plataformas possui? Faça um gráfico de barras para ilustrar esses valores</h2>
 
-# In[121]:
+# In[645]:
 
 
 qtd_filmes_netflix = df['Netflix'].sum()
@@ -68,7 +68,7 @@ plt.show()
 
 # <h2>2) Quantos filmes estão em mais de uma plataforma?</h2>
 
-# In[122]:
+# In[646]:
 
 
 qtd = 0
@@ -90,7 +90,7 @@ print("Nº de filmes que estão em mais de uma plataforma:", qtd)
 
 # <h2>3) Qual a plataforma que possui a maior média de nota IMDb?</h2>
 
-# In[123]:
+# In[647]:
 
 
 df_filmes_netflix = df[df['Netflix'] == 1]
@@ -99,7 +99,7 @@ df_filmes_amazon = df[df['Amazon_prime'] == 1]
 df_filmes_disney = df[df['Disney+'] == 1]
 
 
-# In[124]:
+# In[648]:
 
 
 def calcularMediaIMDb(df, nome_plataforma):
@@ -108,7 +108,7 @@ def calcularMediaIMDb(df, nome_plataforma):
     return media
 
 
-# In[125]:
+# In[649]:
 
 
 media_netflix = calcularMediaIMDb(df_filmes_netflix, 'Netflix')
@@ -124,7 +124,7 @@ print("\nA plataforma que possui maior média de nota IMDb é a %s, com uma méd
 
 # <h2>4) Qual o percentual de filmes de cada plataforma com nota IMDb maior que 8?</h2>
 
-# In[126]:
+# In[650]:
 
 
 def calcularPercentualNotaIMDb(df, nome_plataforma, limiar=8):
@@ -137,7 +137,7 @@ def calcularPercentualNotaIMDb(df, nome_plataforma, limiar=8):
     return percentual
 
 
-# In[127]:
+# In[651]:
 
 
 print('Percentual de filmes de cada plataforma com nota IMDb maior que 8:')
@@ -155,7 +155,7 @@ print(nome_plat, 'possui um maior percentual de filmes com nota IMDb maior que 8
 
 # <h2>5) Se uma pessoa é uma apreciadora de filmes clássicos antigos, qual plataforma você mais recomenda? Justifique.</h2>
 
-# In[128]:
+# In[652]:
 
 
 df_antigos = df[df['Ano'] <= 1990]
@@ -179,7 +179,7 @@ print(nome_plat, 'possui um maior número de filmes antigos.')
 
 # <h2>6) Quantas categorias de classificação etária existem? Faça um gráfico de barras com a quantidade de filmes por classificação etária.</h2>
 
-# In[129]:
+# In[653]:
 
 
 df_classificacao_unique = df['Classificacao_etaria'].unique
@@ -188,7 +188,7 @@ df_classificacao_unique
 
 # <p>Note que existem valores <b>NaN</b>. No entanto, vou considerar para ver também a quantidade de filmes que não possuem a classificação etária informada...</p>
 
-# In[130]:
+# In[654]:
 
 
 #df_classificacao_unique = df['Classificacao_etaria'].dropna().unique()
@@ -196,7 +196,7 @@ df_classificacao_unique = df['Classificacao_etaria'].unique()
 df_classificacao_unique
 
 
-# In[131]:
+# In[655]:
 
 
 qtd_categorias_classificacao_etaria = len(df_classificacao_unique)
@@ -205,7 +205,7 @@ print('- Existem', (qtd_categorias_classificacao_etaria-(1 if pd.isnull(df_class
 print('- Existem filmes em que a categoria de classificação etária está ausente, como visto acima.')
 
 
-# In[132]:
+# In[656]:
 
 
 dict_somas = dict((el if el is not np.nan else 'Não informado',0) for el in df_classificacao_unique)
@@ -219,7 +219,7 @@ for k in dict_somas:
 dict_somas
 
 
-# In[133]:
+# In[657]:
 
 
 fig = plt.figure()
@@ -241,7 +241,7 @@ plt.show()
 
 # <p>L8069 - Planalto: Art. 2º Considera-se criança, para os efeitos desta Lei, a pessoa até doze anos de idade incompletos, e adolescente aquela entre doze e dezoito anos de idade. (http://www.planalto.gov.br/ccivil_03/leis/l8069.htm)</p>
 
-# In[134]:
+# In[658]:
 
 
 df_classificacao = df.groupby('Classificacao_etaria')
@@ -249,7 +249,7 @@ df_classificacao_sum = df_classificacao.sum()
 df_classificacao_sum
 
 
-# In[135]:
+# In[659]:
 
 
 df_menores = df_classificacao_sum[(df_classificacao_sum.index == '7+') | (df_classificacao_sum.index == 'all')].sum()
@@ -274,7 +274,7 @@ print(nome_plat, 'possui um maior número de filmes próprios para crianças (me
 
 # <h2>8) Faça um gráfico de linhas com a quantidade de filmes disponíveis por ano de lançamento. Qual o ano que possui mais filmes, e quantos filmes foram lançados nesse ano? Qual a média de lançamento de filmes por ano? Trace uma linha reta no gráfico com a média, e responda em quais anos foram lançados mais filmes do que a média.</h2>
 
-# In[136]:
+# In[660]:
 
 
 df_anos = df.copy()
@@ -287,22 +287,19 @@ media_lancamentos = df_anos_sum.agg('mean')
 print('Média de lançamentos de filmes por ano: %.2f'%media_lancamentos)
 
 plt.axhline(y=media_lancamentos, color='r', linestyle='-')
-plt.annotate("%.2f"%media_lancamentos, (1910, media_lancamentos+20))
 plt.title('Número de filmes por ano')
 ax.set_ylabel('Número de filmes')
 plt.show()
 
 
-# In[137]:
+# In[661]:
 
 
 print('Ano que possui mais filmes e o nº de filmes lançados neste ano:')
 df_anos_sum.sort_values(ascending=False).head(1)
 
 
-# <p>O ano de 2017 possui a maior quantidade de lançamentos de filmes, com 1401 lançamentos.</p>
-
-# In[138]:
+# In[662]:
 
 
 df_anos_acima_media = df_anos_sum[df_anos_sum > media_lancamentos]
@@ -320,7 +317,7 @@ for k in df_anos_acima_media.keys():
 
 # <h2>9) Faça o Boxplot da duração dos filmes. Em seguida, remova os outliers que achar necessário, e faça o histograma da duração. Ajuste o parâmetro "bins" se necessário, para visualizar melhor. Em seguida,  responda se os valores de duração seguem a distribuição Normal. Justifique.</h2>
 
-# In[139]:
+# In[663]:
 
 
 ax = df['Duracao_min'].plot(kind='box')
@@ -329,10 +326,10 @@ ax.set_ylabel('Duração (em minutos)')
 plt.show()
 
 
-# In[140]:
+# In[664]:
 
 
-lim = 180
+lim = 300
 df_duracao_limpo = df[df['Duracao_min'] < lim]['Duracao_min']
 ax = df_duracao_limpo.plot(kind='box')
 plt.title('Boxplot - Duração dos filmes (menor que %d)'%lim)
@@ -341,7 +338,7 @@ print('Nº elementos:', len(df_duracao_limpo))
 plt.show()
 
 
-# In[141]:
+# In[665]:
 
 
 ax = df_duracao_limpo.hist(bins=75)
@@ -351,12 +348,12 @@ ax.set_xlabel('Duração (em minutos)')
 plt.show()
 
 
-# <p>Pelo histograma acima, é possível observar que os valores de duração <b>parecem seguir uma distribuição normal</b>. Para confirmar <b>matematicamente</b>, podemos usar a função <b>scipy.stats.normaltest</b>, baseada nos testes de D’Agostino e Pearson’s.</p>
+# <p>Pelo histograma acima, é possível observar que os valores de duração <b>parecem seguir uma distribuição normal</b>. Para confirmar matematicamente, podemos usar a função <b>scipy.stats.normaltest</b>, baseada nos testes de D’Agostino e Pearson’s</p>
 # 
 # <p><b>Hipótese nula</b>: Os valores de duração seguem uma distribuição normal.</p>
 # <p><b>Hipótese alternativa</b>: Os valores de duração não seguem uma distribuição normal.</p>
 
-# In[142]:
+# In[666]:
 
 
 nt = normaltest(df_duracao_limpo)
@@ -376,7 +373,7 @@ else:
 
 # <h2>10) Quantos gêneros distintos existem? Quantos filmes de cada gênero existem?</h2>
 
-# In[143]:
+# In[667]:
 
 
 generos = {}
@@ -397,7 +394,7 @@ for index, row in df.iterrows():
 
 # <p>Considerei os valores ausentes também para contabilizar os filmes que não foram classificados em nenhum gênero. Essa informação pode ser útil para saber como normalizar isto, uma vez que a falta desse tipo de informação é prejudicial nas buscas por determinados filmes que não possuem seus gêneros informados.</p>
 
-# In[144]:
+# In[668]:
 
 
 print('Existem %d gêneros distintos (excluindo-se os com valores NaN). A quantidade de filmes que cada'%(len(generos) - 1),
@@ -413,7 +410,7 @@ for k in generos:
 
 # <h2>11) Qual o diretor possui a melhor media de nota IMDb dos seus filmes?</h2>
 
-# In[145]:
+# In[669]:
 
 
 #Diretores
@@ -440,7 +437,7 @@ for k in diretores:
     diretores[k] = diretores[k] / diretores_cont[k]
 
 
-# In[146]:
+# In[670]:
 
 
 diretores_ordenados = {k: v for k, v in sorted(diretores.items(), reverse=True, key=lambda x: x[1])}
@@ -459,12 +456,12 @@ print('...')
 # <h2>12) Utilize regras de associação para responder às seguintes questões:</h2>
 # <h3>a) Qual o conjunto de itens de gêneros com mais de um gênero que aparece em mais filmes?</h3>
 
-# In[147]:
+# In[671]:
 
 
-df4 = df.copy()
+df4 = df.copy().dropna()
 df4['qtd_filmes'] = 1
-df4 = df4[(pd.isnull(df4['Generos']) == False) & (df4['Generos'].str.contains(','))]
+df4 = df4[df4['Generos'].str.contains(',')]
 df4 = df4.groupby('Generos')
 df4['qtd_filmes'].sum().sort_values(ascending=False).head(3)
 
@@ -473,7 +470,7 @@ df4['qtd_filmes'].sum().sort_values(ascending=False).head(3)
 
 # <h3>b) Qual o percentual de filmes em que esse conjunto de itens aparece?</h3>
 
-# In[148]:
+# In[672]:
 
 
 p = df4['qtd_filmes'].sum().sort_values(ascending=False).head(1)/len(df)*100 
@@ -481,11 +478,11 @@ print('Percentual de filmes em que o conjunto de itens {Comedy, Drama} aparece:'
 p
 
 
-# <p>O percentual de filmes que o conjunto {Comedy, Drama} aparece é de <b>2,66%</b>.</p>
+# <p>O percentual de filmes que o conjunto {Comedy, Drama} aparece é de <b>1,24%</b>.</p>
 
 # <h3>c) Considerando uma pessoa que gosta de filmes de "Crime", quais outros gêneros você recomendaria  a essa pessoa? Justifique sua resposta.</h3>
 
-# In[149]:
+# In[673]:
 
 
 df2 = df.dropna()
@@ -502,7 +499,7 @@ for i, row in df.iterrows():
 df2 = df2.drop('Generos', 1)
 
 
-# In[150]:
+# In[674]:
 
 
 df3 = df2.copy()
@@ -510,46 +507,40 @@ df3 = df3.dropna()
 df3.head(15)
 
 
-# In[151]:
+# In[675]:
 
 
 frequent_itemsets = apriori(df3, min_support=0.06, use_colnames=True)
 
 
-# In[152]:
+# In[676]:
 
 
 rules = association_rules(frequent_itemsets, metric='confidence', min_threshold=0.1)
 
 
-# In[153]:
+# In[677]:
 
 
 rules
 
 
-# In[154]:
+# In[678]:
 
 
 rules[rules['support'] == rules.support.max()]
 
 
-# In[155]:
+# In[679]:
 
 
 rules[rules['confidence'] == rules.confidence.max()]
 
 
-# In[156]:
+# In[680]:
 
 
 rules[rules['lift'] == rules.lift.max()]
 
 
-# In[157]:
-
-
-rules[rules['antecedents'].astype(str).str.contains('Crime')]
-
-
-# <p>Observando as regras acima, é possível perceber que pessoas que assistem filmes com o gênero <b>Crime</b>, também assistem aos filmes de gênero <b>Drama</b> e <b>Thriller</b>. A confiança para com estes valores é de mais de 50% e o número de suporte pode se considerar aceitável para esta análise. É interessante observar também a coluna referente aos valores de <i>lift</i>, que reforçam essa observação. Desta forma, eu recomendaria a essa pessoa a assistir filmes de <b>Drama</b> e <b>Thriller</b>.</p>
+# <p>Observando as regras acima, é possível perceber que pessoas que assistem filmes com o gênero "Crime", também assistem aos filmes de gênero <b>Drama e Thriller</b>. A confiança para com estes valores é de mais de 50% e o número de suporte pode se considerar aceitável para esta análise. Desta forma, eu recomendaria a essa pessoa a assistir filmes de Drama e Thriller.</p>
